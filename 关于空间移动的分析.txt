@@ -1,0 +1,27 @@
+/error 151   无效的地点
+/error 313 无法记录更多地点
+/error 357 虚弱状态下无法进行空间移动
+/error 447 攻城战中，无法进行空间移动
+/error 576 无
+/error 608 1 无法进行空间移动
+/error 609 无法使用他人的空间移动
+/error 610 无法在背负东西时使用空间移动
+/error 611 审判中无法使用空间移动
+/error 793 玩家在使用空间之门后，需要等待10秒才能再次使用空间之门
+
+/error all
+
+
+
+1464,1465,1466,1656,2045,2305,2418,2506,3298,3313,3314,3785,3786,3787,4635,4636,4652,4739,4740,4741,4742,4877,4882,6215
+
+
+
+
+INSERT INTO "locale"."localized_texts" ("id", "tbl_name", "tbl_column_name", "idx", "ko", "ko_ver", "en_us", "en_us_ver", "zh_cn", "zh_cn_ver", "ja", "ja_ver", "ru", "ru_ver", "zh_tw", "zh_tw_ver", "de", "de_ver", "fr", "fr_ver") VALUES (315627, 'quest_act_obj_aliases', 'name', 3380, '@NPC_NAME(502)을 대상으로 채팅창에 /꽃가루 입력', 1, 'Target @NPC_NAME(502) and enter /flowers in chat', 0, '瞄准@NPC_NAME(502) 并在聊天中输入 /花瓣', 0, '', 0, '', 0, '', 0, 'Wähle @NPC_NAME(502) als Ziel aus und gib im Chat /blumen ein', 0, 'Ciblez @NPC_GROUP_NAME(502) et saisissez /fleurs dans la fenêtre de chat', 0);
+
+UPDATE "locale"."localized_texts" SET "zh_cn" = '瞄准@NPC_NAME(502) 并在聊天中输入 /花瓣' WHERE "tbl_name" = 'quest_act_obj_aliases' AND "tbl_column_name" = 'name' AND "idx" = 3380;
+
+
+
+UPDATE "" SET "id" = 307169, "tbl_name" = 'doodad_almighties', "tbl_column_name" = 'name', "idx" = 8236, "zh_cn" = 'Red Spring Tulip', "zh_cn" = '迎春红色郁金香', "en_us" = 'Red Spring Tulip', "en_us" = 'Red Spring Tulip' WHERE "id" = 307169 AND "tbl_name" = 'doodad_almighties' AND "tbl_column_name" = 'name' AND "idx" = 8236 AND "zh_cn" = 'Red Spring Tulip' AND "zh_cn" = '迎春红色郁金香' AND "en_us" = 'Red Spring Tulip' AND "en_us" = 'Red Spring Tulip';

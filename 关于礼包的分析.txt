@@ -1,0 +1,45 @@
+此文档仅供开发者参考，非开发不要管。
+
+总结：创建礼包需要对应修改6+表，修改后需要更新客户端。较为麻烦。不如直接发GM邮件来的方便。
+
+
+1、在 loots 表创建对应记录
+	id按顺序自增
+	loot_pack_id 按当前最大值+1，item_id 是打开包裹后给的物品
+	每个物品一行，同一个包裹 loot_pack_id 相同。
+
+	例如
+INSERT INTO "main"."loots" ("id", "group", "item_id", "drop_rate", "min_amount", "max_amount", "loot_pack_id", "grade_id", "always_drop") VALUES (8000227, 0, 11125, 1, 1, 1, 8000029, 0, 'f');
+
+2、在 gain_loot_pack_item_effects 创建包裹打开效果模板
+
+	该表对应打开包裹对应的效果，loot_pack_id = loots.loot_pack_id
+
+INSERT INTO "main"."gain_loot_pack_item_effects" ("id", "loot_pack_id", "consume_source_item", "consume_item_id", "consume_count", "inherit_grade") VALUES (8000040, 8000029, 't', NULL, 0, 'f');
+
+
+3、创建效果模板
+
+	actual_type 固定  GainLootPackItemEffect 表示对应 gain_loot_pack_item_effects
+	actual_id = gain_loot_pack_item_effects.id
+
+INSERT INTO "main"."effects" ("id", "actual_id", "actual_type") VALUES (8000118, 8000040, 'GainLootPackItemEffect');
+
+
+4、创建技能模板
+INSERT INTO "main"."skills" ("id", "name", "desc", "cost", "icon_id", "show", "start_anim_id", "fire_anim_id", "ability_id", "mana_cost", "timing_id", "weapon_slot_for_autoattack_id", "cooldown_time", "casting_time", "ignore_global_cooldown", "effect_delay", "effect_speed", "effect_repeat_count", "effect_repeat_tick", "category_id", "active_weapon_id", "target_type_id", "target_selection_id", "target_relation_id", "target_area_count", "target_area_radius", "target_siege", "weapon_slot_for_angle_id", "target_angle", "weapon_slot_for_range_id", "min_range", "max_range", "keep_stealth", "stop_autoattack", "aggro", "fx_group_id", "projectile_id", "check_obstacle", "channeling_time", "channeling_tick", "channeling_mana", "channeling_anim_id", "channeling_target_buff_id", "target_area_angle", "ability_level", "channeling_doodad_id", "cooldown_tag_id", "skill_controller_id", "repeat_count", "repeat_tick", "toggle_buff_id", "target_dead", "channeling_buff_id", "reagent_corpse_status_id", "source_dead", "level_step", "valid_height", "target_valid_height", "source_mount", "stop_casting_on_big_hit", "stop_channeling_on_big_hit", "auto_learn", "need_learn", "mainhand_tool_id", "offhand_tool_id", "front_angle", "mana_level_md", "twohand_fire_anim_id", "unmount", "damage_type_id", "allow_to_prisoner", "milestone_id", "match_animation", "plot_id", "use_anim_time", "start_autoattack", "consume_lp", "source_stun", "target_alive", "web_desc", "target_water", "use_skill_camera", "controller_camera", "camera_speed", "controller_camera_speed", "camera_max_distance", "camera_duration", "camera_acceleration", "camera_slow_down_distance", "camera_hold_z", "casting_inc", "casting_cancelable", "casting_delayable", "channeling_cancelable", "target_offset_angle", "target_offset_distance", "actability_group_id", "plot_only", "pitch_angle", "skill_controller_at_end", "end_skill_controller", "string_instrument_start_anim_id", "percussion_instrument_start_anim_id", "tube_instrument_start_anim_id", "string_instrument_fire_anim_id", "percussion_instrument_fire_anim_id", "tube_instrument_fire_anim_id", "or_unit_reqs", "default_gcd", "show_target_casting_time", "valid_height_edge_to_edge", "link_equip_slot_id", "link_backpack_type_id", "keep_mana_regen", "crime_point", "level_rule_no_consideration", "use_weapon_cooldown_time", "synergy_icon1_buffkind", "synergy_icon1_id", "synergy_icon2_buffkind", "synergy_icon2_id", "combat_dice_id", "can_active_weapon_without_anim", "custom_gcd", "cancel_ongoing_buffs", "cancel_ongoing_buff_exception_tag_id", "source_cannot_use_while_walk", "source_mount_mate", "match_animation_count", "dual_wield_fire_anim_id", "auto_fire", "check_terrain", "target_only_water", "source_not_swim", "target_preoccupied", "stop_channeling_on_start_skill", "stop_casting_by_turn", "target_my_npc", "gain_life_point", "target_fishing", "source_no_slave", "auto_reuse", "auto_reuse_delay", "source_not_collided", "skill_points", "doodad_hit_family", "name_tr", "desc_tr", "web_desc_tr", "sensitive_operation", "first_reagent_only", "source_alive", "target_decal_radius", "doodad_bundle_id") VALUES (8000048, '测试技能', '测试技能', 0, 5594, 'f', 108, 100, 0, 0, 1, 0, 1000, 3000, 'f', 0, 0.0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 'f', -1, 0, -1, 0, 4, 'f', 'f', 0, '1291', NULL, 't', 0, 0, 0, '48', NULL, 360, 1, NULL, NULL, 0, 1, 100, NULL, 'f', NULL, 0, 'f', 1, 0.0, 0.0, 'f', 'f', 'f', 't', 'f', NULL, NULL, 0, 0.0, NULL, 'f', NULL, 'f', 5, 'f', NULL, 'f', 'f', 0, 'f', 't', '선물 꾸러미를 풉니다.', 't', 'f', 'f', 20.0, 80, 5.0, 1.0, 0.2, 2.0, 'f', 0, 'f', 'f', 'f', 0.0, 0.0, NULL, 'f', 0.0, 'f', 'f', NULL, NULL, NULL, NULL, NULL, NULL, 'f', 't', 't', 't', -1, 1, 'f', 0, 'f', 'f', 't', 0, 't', 0, 4, 'f', 0, 't', NULL, 'f', 'f', 'f', NULL, 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 0, 'f', 'f', 'f', 0, 'f', 1, 0, 't', 't', 'f', 'f', 'f', 't', 0, '0');
+
+
+5、创建技能效果模板
+
+	skill_id = skills.id
+	effect_id = effects.id
+
+INSERT INTO "main"."skill_effects" ("id", "skill_id", "effect_id", "weight", "start_level", "end_level", "friendly", "non_friendly", "target_buff_tag_id", "target_nobuff_tag_id", "source_buff_tag_id", "source_nobuff_tag_id", "chance", "front", "back", "target_npc_tag_id", "application_method_id", "synergy_text", "consume_source_item", "consume_item_id", "consume_item_count", "always_hit", "item_set_id", "interaction_success_hit") VALUES (8000077, 8000048, 8000118, 0, 1, 99, 't', 't', NULL, NULL, NULL, NULL, 100, 't', 't', NULL, 1, 'f', 'f', NULL, 1, 'f', '0', 'f');
+
+
+
+6、创建礼包
+	use_skill_id 对应技能的 id ，use_skill_id = skills.id
+
+INSERT INTO "main"."items" ("id", "name", "category_id", "level", "description", "price", "refund", "bind_id", "pickup_limit", "max_stack_size", "icon_id", "sellable", "use_skill_id", "use_skill_as_reagent", "impl_id", "pickup_sound_id", "milestone_id", "buff_id", "gradable", "loot_multi", "loot_quest_id", "notify_ui", "use_or_equipment_sound_id", "honor_price", "exp_abs_lifetime", "exp_online_lifetime", "exp_date", "specialty_zone_id", "level_requirement", "comment", "auction_a_category_id", "auction_b_category_id", "auction_c_category_id", "level_limit", "fixed_grade", "disenchantable", "living_point_price", "actability_group_id", "actability_requirement", "grade_enchantable", "char_gender_id", "one_time_sale", "limited_sale_count", "male_icon_id", "over_icon_id", "translate", "auto_register_to_actionbar") VALUES (8000103, 'GM测试赠送', 1, 1, 'GM测试赠送', 0, 0, 2, 0, 1, 8234, 'f', 8000048, 'f', 0, 201, 5, 0, 'f', 'f', 0, 't', 328, 0, 0, 0, NULL, NULL, 0, '[이벤트] 신규 결제 선물 꾸러미', NULL, NULL, NULL, 0, -1, 't', 0, NULL, 0, 'f', 0, 'f', 0, NULL, NULL, 't', 'f');
